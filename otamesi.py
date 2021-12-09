@@ -3,6 +3,7 @@
 import sys
 import tkinter
 from tkinter.constants import LEFT
+
 class Application(tkinter.Frame):
   def __init__(self, master = None):
     super().__init__(master)
