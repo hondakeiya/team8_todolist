@@ -14,9 +14,8 @@ class Application(tkinter.Frame):
     self.EDITDEFAULT_X=160
     self.EDITDEFAULT_Y=20
     self.DEFAULTENTRYBOX_X=130 #最初の入力ボックスのx座標
-    self.DEFAULTENTRYBOX_Y=40 #最初の入力ボックスのy座標
+    self.DEFAULT_Y=40 #最初の入力ボックスのy座標
     self.DEFAULTCHECKBOX_X=0
-    self.DEFAULTCHECKBOX_Y=40
     
     self.box_y=0
     self.check_box_y=0
@@ -26,26 +25,21 @@ class Application(tkinter.Frame):
   # Create Widgets function
   def create_widgets(self):
     
-    def add_box_y():
-      self.box_y+=self.DEFAULTENTRYBOX_Y
+    def get_y():
       return self.box_y
     
-    def add_check_box_y():
-      self.check_box_y+=self.DEFAULTCHECKBOX_Y    
-      return self.check_box_y
+    def add_y():
+      self.box_y+=self.DEFAULT_Y
+      return self.box_y
+  
     
     #ラベル
     self.Static1 = tkinter.Label(text=u'Do it now!')
     self.Static1.place(x=self.EDITDEFAULT_X,y=self.EDITDEFAULT_Y)
-
-    #入力ボックス
-    # self.EditBox = tkinter.Entry()
-    # self.EditBox.insert(tkinter.END,"・")
-    # self.EditBox.pack()
     
     def MakeBox(event):
     #入力ボックスの作成
-      it_box_y=add_box_y()
+      it_box_y=add_y()
     
       EditBox = tkinter.Entry(width=20)
       EditBox.insert(tkinter.END,"・")
@@ -53,7 +47,7 @@ class Application(tkinter.Frame):
     
     def MakeCheckBox(event):
       #チェックボックスの作成
-      it_check_y=add_check_box_y()
+      it_check_y=get_y()
       #print(it_check_y)
       CheckBox = tkinter.Checkbutton(text=u'絶対やること１つ')
       CheckBox.place(x=self.DEFAULTCHECKBOX_X,y=it_check_y)
@@ -61,27 +55,19 @@ class Application(tkinter.Frame):
     def MakeTask(event):
       MakeBox(event)
       MakeCheckBox(event)
-
-    # ボタンが押されるとここが呼び出される
-    # def DeleteEntryValue(event):
-    #   #エントリーの中身を削除
-    #   self.delete(0, tkinter.END)
+    
+    def deleteSelectedList():
+      selectedIndex = tkinter.ACTIVE
+      EditBox.delete(selectedIndex)
 
     #ボタン
     self.Button = tkinter.Button(text=u'押すなよ！絶対押すなよ！')
-    self.Button.bind("<Button-1>",MakeTask) 
+    self.Button.bind("<Button-1>",MakeTask)
+    
+    self.Button = tkinter.Button(text=u'てめえはもう用済みだ!')
+    self.Button.bind("<Button-2>",deleteSelectedList)
     #左クリック（<Button-1>）されると，DeleteEntryValue関数を呼び出すようにバインド
     self.Button.place(x=0,y=0)
-
-    #チェックボックス
-    # self.CheckBox = tkinter.Checkbutton(text=u'絶対やること１')
-    # self.CheckBox.place(x=0, y=50)
-
-    # self.CheckBox = tkinter.Checkbutton(text=u'絶対やること２')
-    # self.CheckBox.pack()
-
-    # self.CheckBox = tkinter.Checkbutton(text=u'絶対やること３')
-    # self.CheckBox.pack()
 
 def main():
   root = tkinter.Tk()
