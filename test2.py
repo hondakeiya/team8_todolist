@@ -30,16 +30,25 @@ class Application(tk.Frame):
     #入力ボックスの作成
         self.ListBox1.insert(tk.END, '絶対やること')
     
+    def MakeExplanation():
+        self.ListBox2.insert(tk.END, 'kwsk')
+    
     def deleteSelectedList():#削除関数
         selectedIndex = tk.ACTIVE
         self.ListBox1.delete(selectedIndex)
+        self.ListBox2.delete(selectedIndex)
     
     def MakeTask():
       MakeBox()
+      MakeExplanation()
     #   MakeCheckBox()
+    
+    self.Entry1 = tk.Entry(width=10)
+    self.Entry1.insert(tk.END, u'挿入する文字列')
+    self.Entry1.place(x=20,y=50)
 
     #ボタン
-    self.Button1 = tk.Button(text=u'押すなよ！絶対押すなよ！', command=lambda:MakeBox())
+    self.Button1 = tk.Button(text=u'押すなよ！絶対押すなよ！', command=lambda:MakeTask())
     self.Button1.place(x=20,y=20)
     
     self.Button2 = tk.Button(text=u'てめえはもう用済みだ!', command=lambda:deleteSelectedList())
@@ -48,6 +57,9 @@ class Application(tk.Frame):
     #Todoリスト作成
     self.ListBox1 = tk.Listbox(width=15, height=15)
     self.ListBox1.place(x=10,y=100)
+    
+    self.ListBox2 = tk.Listbox(width=15, height=15)
+    self.ListBox2.place(x=150,y=100)
 
 def main():
   root = tk.Tk()
