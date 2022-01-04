@@ -3,8 +3,8 @@
 import sys
 import tkinter as tk
 from tkinter.constants import LEFT
-from dateutil import relativedelta
 from datetime import date,timedelta
+import datetime
 
 class Application(tk.Frame):
   def __init__(self, master = None):
@@ -36,18 +36,14 @@ class Application(tk.Frame):
         self.ListBox3.delete(selectedIndex)
     
     def MakeDeadlineSetting(text1,text2,text3):#期限設定
-      self.ListBox3.insert(tk.END, text1+"/"+text2+"/"+text3)
+      self.ListBox3.insert(tk.END, text1+"/"+text2+"/"+text3)#リストに追加
       int1=int(text1)
       int2=int(text2)
       int3=int(text3)
-      d = date(int1,int2,int3)
-      yd = d - timedelta(days=1)
+      d = date(int1,int2,int3)#提出日を設定
+      yd = d - timedelta(days=1)#提出日前日を設定
       print(d)
       print(yd)
-      
-      
-      
-      
     
     def MakeTask(text1,text2,text3,text4,text5):
       MakeBox(text1)
@@ -67,14 +63,15 @@ class Application(tk.Frame):
     self.label3 = tk.Label(text="詳細")
     self.label3.place(x=20,y=80)
     
-    self.Entry3 = tk.Entry(width=4)# 本当はimport dateから持ってきたい
-    self.Entry3.insert(tk.END, u'2022')
+    self.dt_now = datetime.datetime.now()# 現在日時を取得
+    self.Entry3 = tk.Entry(width=4)
+    self.Entry3.insert(tk.END, self.dt_now.year)#入力欄に今年を挿入
     self.Entry3.place(x=120,y=110)
     self.Entry4 = tk.Entry(width=2)
-    self.Entry4.insert(tk.END, u'1')
+    self.Entry4.insert(tk.END, self.dt_now.month)#入力欄に今月を挿入
     self.Entry4.place(x=170,y=110)
     self.Entry5 = tk.Entry(width=2)
-    self.Entry5.insert(tk.END, u'3')
+    self.Entry5.insert(tk.END, self.dt_now.day)#入力欄に今日を挿入
     self.Entry5.place(x=200,y=110)
     self.label4 = tk.Label(text="提出日")
     self.label4.place(x=20,y=110)
