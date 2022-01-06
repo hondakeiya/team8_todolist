@@ -42,14 +42,9 @@ class Application(tk.Frame):
       int1=int(text1)
       int2=int(text2)
       int3=int(text3)
-      # d = date(int1,int2,int3)#提出日を設定
-      # yd = d - timedelta(days=1)#提出日前日を設定
       self.Things_To_Do_list.append(int1)#リストに追加
       self.Things_To_Do_list.append(int2)
       self.Things_To_Do_list.append(int3)
-      # print(self.Things_To_Do_list[0])
-      # print(self.Things_To_Do_list[1])
-      # print(self.Things_To_Do_list[2])
     
     def MakeTask(text1,text2,text3,text4,text5):
       MakeBox(text1)
