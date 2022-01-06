@@ -5,6 +5,8 @@ import tkinter as tk
 from tkinter.constants import LEFT
 from datetime import date,timedelta
 import datetime
+import schedule
+import time
 
 class Application(tk.Frame):
   def __init__(self, master = None):
@@ -42,12 +44,28 @@ class Application(tk.Frame):
       int3=int(text3)
       # d = date(int1,int2,int3)#提出日を設定
       # yd = d - timedelta(days=1)#提出日前日を設定
-      # self.Things_To_Do_list.append(int1,int2,int3)#リストに追加
+      self.Things_To_Do_list.append(int1)#リストに追加
+      self.Things_To_Do_list.append(int2)
+      self.Things_To_Do_list.append(int3)
+      # print(self.Things_To_Do_list[0])
+      # print(self.Things_To_Do_list[1])
+      # print(self.Things_To_Do_list[2])
     
     def MakeTask(text1,text2,text3,text4,text5):
       MakeBox(text1)
       MakeExplanation(text2)
       MakeDeadlineSetting(text3,text4,text5)
+    
+    def Check_Things_To_Do():
+      for i in range(len(self.Things_To_Do_list)):
+        count = i*3
+        if self.dt_now.year == self.Things_To_Do_list[count] and self.dt_now.month == self.Things_To_Do_list[count+1]:
+          if self.dt_now.day == self.Things_To_Do_list[count+2] - 1:
+            print(i+1+"番目の課題にもっと熱くなれよ!こっちもしじみがトゥルルって頑張ってんだから!")
+          if self.dt_now.day == self.Things_To_Do_list[count+2]:
+            print(i+1+"番目の課題を諦めんなよ。諦めんなよお前!")
+    
+    schedule.every().hour.do(Check_Things_To_Do())
     
     # entryboxとそのラベル
     self.Entry1 = tk.Entry(width=10)
