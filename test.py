@@ -78,15 +78,23 @@ class Application(tk.Frame):
     self.Entry3 = tk.Entry(width=4)
     self.Entry3.insert(tk.END, self.dt_now.year)#入力欄に今年を挿入
     self.Entry3.place(x=120,y=110)
+    self.label5 = tk.Label(text="年")
+    self.label5.place(x=170,y=110)
     self.Entry4 = tk.Entry(width=2)
     self.Entry4.insert(tk.END, self.dt_now.month)#入力欄に今月を挿入
-    self.Entry4.place(x=170,y=110)
+    self.Entry4.place(x=190,y=110)
+    self.label6 = tk.Label(text="月")
+    self.label6.place(x=220,y=110)
     self.Entry5 = tk.Entry(width=2)
     self.Entry5.insert(tk.END, self.dt_now.day)#入力欄に今日を挿入
-    self.Entry5.place(x=200,y=110)
+    self.Entry5.place(x=240,y=110)
+    self.label7 = tk.Label(text="日")
+    self.label7.place(x=270,y=110)
     self.Entry6 = tk.Entry(width=2)
     self.Entry6.insert(tk.END, self.dt_now.hour)#入力欄に時間を挿入
-    self.Entry6.place(x=230,y=110)
+    self.Entry6.place(x=290,y=110)
+    self.label8 = tk.Label(text="時")
+    self.label8.place(x=320,y=110)
     self.label4 = tk.Label(text="提出日")
     self.label4.place(x=20,y=110)
 
