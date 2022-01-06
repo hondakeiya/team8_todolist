@@ -57,7 +57,7 @@ class Application(tk.Frame):
       MakeDeadlineSetting(text3,text4,text5)
     
     def Check_Things_To_Do():
-      for i in range(len(self.Things_To_Do_list)):
+      for i in range(len(self.Things_To_Do_list)/3):
         count = i*3
         if self.dt_now.year == self.Things_To_Do_list[count] and self.dt_now.month == self.Things_To_Do_list[count+1]:
           if self.dt_now.day == self.Things_To_Do_list[count+2] - 1:
