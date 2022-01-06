@@ -42,6 +42,7 @@ class Application(tk.Frame):
       self.Things_To_Do_list.append(int(text1))#リストに追加
       self.Things_To_Do_list.append(int(text2))
       self.Things_To_Do_list.append(int(text3))
+      self.Things_To_Do_list.append(int(text4))
     
     def MakeTask(text1,text2,text3,text4,text5,text6):
       MakeBox(text1)
@@ -49,8 +50,8 @@ class Application(tk.Frame):
       MakeDeadlineSetting(text3,text4,text5,text6)
     
     def Check_Things_To_Do():
-      for i in range(len(self.Things_To_Do_list)/3):
-        count = i*3
+      for i in range(len(self.Things_To_Do_list)/4):
+        count = i*4
         if self.dt_now.year == self.Things_To_Do_list[count] and self.dt_now.month == self.Things_To_Do_list[count+1]:
           if self.dt_now.day == self.Things_To_Do_list[count+2] - 1:
             print(i+1+"番目の課題にもっと熱くなれよ!こっちもしじみがトゥルルって頑張ってんだから!")
