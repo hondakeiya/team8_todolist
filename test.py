@@ -5,7 +5,7 @@ import tkinter as tk
 from tkinter.constants import LEFT
 from datetime import date,timedelta
 import datetime
-import schedule
+# import schedule
 import time
 
 class Application(tk.Frame):
@@ -37,19 +37,16 @@ class Application(tk.Frame):
         self.ListBox2.delete(selectedIndex)
         self.ListBox3.delete(selectedIndex)
     
-    def MakeDeadlineSetting(text1,text2,text3):#期限設定
-      self.ListBox3.insert(tk.END, text1+"/"+text2+"/"+text3)#リストに追加
-      int1=int(text1)
-      int2=int(text2)
-      int3=int(text3)
-      self.Things_To_Do_list.append(int1)#リストに追加
-      self.Things_To_Do_list.append(int2)
-      self.Things_To_Do_list.append(int3)
+    def MakeDeadlineSetting(text1,text2,text3,text4):#期限設定
+      self.ListBox3.insert(tk.END, text1+"/"+text2+"/"+text3+"/"+text4+"時")#リストに追加
+      self.Things_To_Do_list.append(int(text1))#リストに追加
+      self.Things_To_Do_list.append(int(text2))
+      self.Things_To_Do_list.append(int(text3))
     
-    def MakeTask(text1,text2,text3,text4,text5):
+    def MakeTask(text1,text2,text3,text4,text5,text6):
       MakeBox(text1)
       MakeExplanation(text2)
-      MakeDeadlineSetting(text3,text4,text5)
+      MakeDeadlineSetting(text3,text4,text5,text6)
     
     def Check_Things_To_Do():
       for i in range(len(self.Things_To_Do_list)/3):
@@ -60,7 +57,8 @@ class Application(tk.Frame):
           if self.dt_now.day == self.Things_To_Do_list[count+2]:
             print(i+1+"番目の課題を諦めんなよ。諦めんなよお前!")
     
-    schedule.every().hour.do(Check_Things_To_Do())
+    # schedule.every().hour.do(Check_Things_To_Do())#毎時間処理予定
+    
     
     # entryboxとそのラベル
     self.Entry1 = tk.Entry(width=10)
@@ -85,13 +83,16 @@ class Application(tk.Frame):
     self.Entry5 = tk.Entry(width=2)
     self.Entry5.insert(tk.END, self.dt_now.day)#入力欄に今日を挿入
     self.Entry5.place(x=200,y=110)
+    self.Entry6 = tk.Entry(width=2)
+    self.Entry6.insert(tk.END, self.dt_now.hour)#入力欄に時間を挿入
+    self.Entry6.place(x=230,y=110)
     self.label4 = tk.Label(text="提出日")
     self.label4.place(x=20,y=110)
 
     #ボタン
     self.Button1 = tk.Button(text=u'押すなよ!絶対押すなよ!', 
     command=lambda:MakeTask(self.Entry1.get(),self.Entry2.get(),
-    self.Entry3.get(),self.Entry4.get(),self.Entry5.get()))
+    self.Entry3.get(),self.Entry4.get(),self.Entry5.get(),self.Entry6.get()))
     self.Button1.place(x=20,y=20)
     
     self.Button2 = tk.Button(text=u'てめえはもう用済みだ!', 
