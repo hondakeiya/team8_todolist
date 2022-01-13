@@ -2,11 +2,13 @@
 # -*- coding: utf8 -*-
 import sys
 import tkinter as tk
+from tkinter import messagebox
 from tkinter.constants import LEFT
 from datetime import date,timedelta
 import datetime
-# import schedule
+#import schedule
 import time
+from pygame import mixer #pygame が必要
 
 class Application(tk.Frame):
   def __init__(self, master = None):
@@ -14,7 +16,7 @@ class Application(tk.Frame):
     
     self.master.title(u"Software Title")###ここから
     self.master.geometry("400x500")
-    self.Things_To_Do_list = []#やるべき事のリスト
+    self.Things_To_Do_list = []#やるべき事の年、月、日、時のリスト
     
     self.create_widgets()
 
@@ -24,6 +26,9 @@ class Application(tk.Frame):
     #ラベル
     self.Static1 = tk.Label(text=u'Do it now!')
     self.Static1.place(x=160,y=0)
+
+    mixer.init()        #初期化
+    mixer.music.load("shuzo5.mp3")  #音声ファイルのパスを入れて読み込む
     
     def MakeBox(text):
         self.ListBox1.insert(tk.END, text)
@@ -58,8 +63,13 @@ class Application(tk.Frame):
           if self.dt_now.day == self.Things_To_Do_list[count+2]:
             print(i+1+"番目の課題を諦めんなよ。諦めんなよお前!")
     
-    # schedule.every().hour.do(Check_Things_To_Do())#毎時間処理予定
+    #schedule.every(1).hour.do(Check_Things_To_Do())#毎時間処理予定
+
     
+    def syuzo():
+            messagebox.showinfo('焦らない焦らない','一休み一休み')
+            mixer.music.play(1)  #再生回数を指定して再生
+            time.sleep(0.01)  #これ入れないと、一瞬で再生されたことになるかも。引数は短い秒数で良い。
     
     # entryboxとそのラベル
     self.Entry1 = tk.Entry(width=10)
@@ -107,6 +117,10 @@ class Application(tk.Frame):
     self.Button2 = tk.Button(text=u'てめえはもう用済みだ!', 
     command=lambda:deleteSelectedList())
     self.Button2.place(x=200,y=20)
+
+    self.Button3 = tk.Button(text=u'もっと熱くなれよ!', 
+    command=lambda:syuzo())
+    self.Button3.place(x=20,y=420)
     
     #Todoリスト作成
     self.ListBox1 = tk.Listbox(width=15, height=15)
