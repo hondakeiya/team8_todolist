@@ -5,7 +5,7 @@ import tkinter as tk
 from tkinter.constants import LEFT
 from datetime import date,timedelta
 import datetime
-# import schedule
+import schedule
 import time
 
 class Application(tk.Frame):
@@ -15,8 +15,13 @@ class Application(tk.Frame):
     self.master.title(u"Software Title")###ここから
     self.master.geometry("400x500")
     self.Things_To_Do_list = []#やるべき事のリスト
-    
     self.create_widgets()
+    # schedule.every(1).hour.do(self.create_widget(self.Check_Things_To_Do()))#毎時間処理予定
+    self.sc()
+  
+  def sc(self): # scheduleモジュールにて定期的にタスク状態を確認
+    schedule.run_pending()
+    self.after(1, self.sc) # 再帰的に実行
 
   # Create Widgets function
   def create_widgets(self):
@@ -26,16 +31,16 @@ class Application(tk.Frame):
     self.Static1.place(x=160,y=0)
     
     def MakeBox(text):
-        self.ListBox1.insert(tk.END, text)
+      self.ListBox1.insert(tk.END, text)
     
     def MakeExplanation(text):
-        self.ListBox2.insert(tk.END, text)
+      self.ListBox2.insert(tk.END, text)
     
     def deleteSelectedList():#削除関数
-        selectedIndex = tk.ACTIVE
-        self.ListBox1.delete(selectedIndex)
-        self.ListBox2.delete(selectedIndex)
-        self.ListBox3.delete(selectedIndex)
+      selectedIndex = tk.ACTIVE
+      self.ListBox1.delete(selectedIndex)
+      self.ListBox2.delete(selectedIndex)
+      self.ListBox3.delete(selectedIndex)
     
     def MakeDeadlineSetting(text1,text2,text3,text4):#期限設定
       self.ListBox3.insert(tk.END, text1+"/"+text2+"/"+text3+"/"+text4+"時")#リストに追加
@@ -50,16 +55,14 @@ class Application(tk.Frame):
       MakeDeadlineSetting(text3,text4,text5,text6)
     
     def Check_Things_To_Do():
-      for i in range(len(self.Things_To_Do_list)/4):
+      list_number = int(len(self.Things_To_Do_list)/4)
+      for i in range(list_number):
         count = i*4
         if self.dt_now.year == self.Things_To_Do_list[count] and self.dt_now.month == self.Things_To_Do_list[count+1]:
           if self.dt_now.day == self.Things_To_Do_list[count+2] - 1:
             print(i+1+"番目の課題にもっと熱くなれよ!こっちもしじみがトゥルルって頑張ってんだから!")
           if self.dt_now.day == self.Things_To_Do_list[count+2]:
             print(i+1+"番目の課題を諦めんなよ。諦めんなよお前!")
-    
-    # schedule.every().hour.do(Check_Things_To_Do())#毎時間処理予定
-    
     
     # entryboxとそのラベル
     self.Entry1 = tk.Entry(width=10)
@@ -121,6 +124,7 @@ class Application(tk.Frame):
 def main():
   root = tk.Tk()
   app = Application(master = root)
+  schedule.run_pending()
   app.mainloop()
 
 if __name__ == "__main__":
