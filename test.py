@@ -7,6 +7,7 @@ from datetime import date,timedelta
 import datetime
 import schedule
 import time
+from pygame import mixer #pygame が必要
 
 class Application(tk.Frame):
   def __init__(self, master = None):
@@ -18,6 +19,8 @@ class Application(tk.Frame):
     self.create_widgets()
     # schedule.every(1).hour.do(self.create_widget(self.Check_Things_To_Do()))#毎時間処理予定
     self.sc()
+    mixer.init()        #音声初期化
+    mixer.music.load("ganbareyo.mp3")  #音声ファイルのパスを入れて読み込む
   
   def sc(self): # scheduleモジュールにて定期的にタスク状態を確認
     schedule.run_pending()
@@ -53,6 +56,7 @@ class Application(tk.Frame):
       MakeBox(text1)
       MakeExplanation(text2)
       MakeDeadlineSetting(text3,text4,text5,text6)
+      mixer.music.play(1)  #再生回数を指定して再生
     
     def Check_Things_To_Do():
       list_number = int(len(self.Things_To_Do_list)/4)
