@@ -16,20 +16,22 @@ class Application(tk.Frame):
     
     self.master.title(u"Software Title")###ここから
     self.master.geometry("400x500")
+    
     self.Things_To_Do_list = []#やるべき事の年、月、日、時のリスト
     
     self.create_widgets()
 
   # Create Widgets function
   def create_widgets(self):
-    
+  
+
     #ラベル
     self.Static1 = tk.Label(text=u'Do it now!')
     self.Static1.place(x=160,y=0)
 
     mixer.init()        #初期化
     mixer.music.load("shuzo5.mp3")  #音声ファイルのパスを入れて読み込む
-    
+
     def MakeBox(text):
         self.ListBox1.insert(tk.END, text)
     
@@ -67,9 +69,10 @@ class Application(tk.Frame):
 
     
     def syuzo():
-            messagebox.showinfo('焦らない焦らない','一休み一休み')
             mixer.music.play(1)  #再生回数を指定して再生
             time.sleep(0.01)  #これ入れないと、一瞬で再生されたことになるかも。引数は短い秒数で良い。
+            messagebox.showinfo('焦らない焦らない','頑張れよ！')
+            
     
     # entryboxとそのラベル
     self.Entry1 = tk.Entry(width=10)
@@ -109,17 +112,16 @@ class Application(tk.Frame):
     self.label4.place(x=20,y=110)
 
     #ボタン
-    self.Button1 = tk.Button(text=u'押すなよ!絶対押すなよ!', 
+    self.Button1 = tk.Button(text=u'やることができたんだな？', 
     command=lambda:MakeTask(self.Entry1.get(),self.Entry2.get(),
     self.Entry3.get(),self.Entry4.get(),self.Entry5.get(),self.Entry6.get()))
     self.Button1.place(x=20,y=20)
     
-    self.Button2 = tk.Button(text=u'てめえはもう用済みだ!', 
+    self.Button2 = tk.Button(text=u'完成を誇れ！お前は富士山だ！', 
     command=lambda:deleteSelectedList())
     self.Button2.place(x=200,y=20)
 
-    self.Button3 = tk.Button(text=u'もっと熱くなれよ!', 
-    command=lambda:syuzo())
+    self.Button3 = tk.Button(text=u'君ならできる!！',command=lambda:syuzo())
     self.Button3.place(x=20,y=420)
     
     #Todoリスト作成
